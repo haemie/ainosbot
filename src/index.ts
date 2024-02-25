@@ -1,22 +1,23 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 // Require the necessary discord.js classes
-const fs = require('node:fs');
-const path = require('node:path');
-const { Client, Collection, GatewayIntentBits } = require('discord.js');
+import fs from 'fs';
+import path from 'path';
+import { GatewayIntentBits } from 'discord.js';
+import newClient from './util/newClient';
 
 const token = process.env.TOKEN;
+const targetFileExtension = process.env.NODE_ENV === 'development' ? '.ts' : '.js';
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
+const client = new newClient({ intents: [GatewayIntentBits.Guilds] });
 /** creating collection to hold commands from /commands directory  */
-client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 for (const folder of commandFolders) {
   const commandsPath = path.join(foldersPath, folder);
   const commandFiles = fs
     .readdirSync(commandsPath)
-    .filter((file) => file.endsWith('.js'));
+    .filter((file) => file.endsWith(targetFileExtension));
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
     const command = require(filePath);
@@ -35,7 +36,7 @@ for (const folder of commandFolders) {
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs
   .readdirSync(eventsPath)
-  .filter((file) => file.endsWith('.js'));
+  .filter((file) => file.endsWith(targetFileExtension));
 
 for (const file of eventFiles) {
   const filePath = path.join(eventsPath, file);

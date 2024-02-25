@@ -1,8 +1,9 @@
-const { Events } = require('discord.js');
+import { Events, Interaction } from 'discord.js';
+import newClient from '../util/newClient';
 
 module.exports = {
   name: Events.InteractionCreate,
-  async execute(interaction) {
+  async execute(interaction: Interaction) {
     if (!interaction.isChatInputCommand()) {
       return;
     }
@@ -11,7 +12,7 @@ module.exports = {
     console.log(interaction.client);
 
     // interaction.client.commands holds all commands
-    const command = interaction.client.commands.get(interaction.commandName);
+    const command = (interaction.client as newClient).commands.get(interaction.commandName);
     // interaction.client.commands: Collection(5) [Map] {
     //   'ping' => { data: [SlashCommandBuilder], execute: [AsyncFunction: execute] },
     //   'scout' => { data: [SlashCommandBuilder], execute: [AsyncFunction: execute] },

@@ -1,4 +1,4 @@
-const { Events } = require('discord.js');
+import { Events, Client } from 'discord.js';
 
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
@@ -6,8 +6,8 @@ const { Events } = require('discord.js');
 module.exports = {
   name: Events.ClientReady,
   once: true,
-  execute: (client) => {
-    console.log(`Ready! Logged in as ${client.user.tag}`);
+  execute: (client: Client) => {
+    console.log(`Ready! Logged in as ${client.user?.tag}`);
   },
 };
 

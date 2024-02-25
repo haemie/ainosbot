@@ -7,9 +7,9 @@
     "build": "tsc",
     "test": "jest",
     "lint": "eslint",
-    "start": "node index.js ",
+    "start": "set NODE_ENV=production&& node ./dist/index.js ",
     "dev": "nodemon index.js",
-    "tsdev": "ts-node-dev --respawn --transpile-only ./src/index.js"
+    "tsdev": "set NODE_ENV=development&& ts-node-dev --respawn --transpile-only ./src/index.ts"
   },
   "keywords": [],
   "author": "",
