@@ -8,16 +8,11 @@ module.exports = {
       return;
     }
 
-    console.log(interaction);
-    console.log(interaction.client);
-
     // interaction.client.commands holds all commands
     const command = (interaction.client as newClient).commands.get(interaction.commandName);
     // interaction.client.commands: Collection(5) [Map] {
     //   'ping' => { data: [SlashCommandBuilder], execute: [AsyncFunction: execute] },
-    //   'scout' => { data: [SlashCommandBuilder], execute: [AsyncFunction: execute] },
     //   'server' => { data: [SlashCommandBuilder], execute: [AsyncFunction: execute] },
-    //   'sticky' => { data: [SlashCommandBuilder], execute: [AsyncFunction: execute] },
     //   'user' => { data: [SlashCommandBuilder], execute: [AsyncFunction: execute] }
     // },
 
