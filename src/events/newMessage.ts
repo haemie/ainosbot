@@ -29,6 +29,7 @@ module.exports = {
     if (message.author.bot) return;
 
     const messageContent = message.content.split(' ');
+
     if (messageContent[0] === 'clearall') {
       for (let e of Object.keys(returnMessage)) {
         const key = e as keyof scoutMessage;
@@ -39,9 +40,18 @@ module.exports = {
     } else if (!(messageContent[0] in returnMessage)) {
       return;
     } else {
+      // there should be scout data in this message now
       if (lastScout) {
+        // check if there's a previous message to delete first
         await lastScout.delete();
       }
+
+      if (message.attachments) {
+        message.attachments.forEach((e) => {
+          messageContent.push(e.proxyURL);
+        });
+      }
+
       const key = messageContent[0] as keyof scoutMessage;
       returnMessage[key].push(messageContent.slice(1).join(' '));
 
