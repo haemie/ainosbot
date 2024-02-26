@@ -54,8 +54,10 @@ module.exports = {
 
       const key = messageContent[0] as keyof scoutMessage;
       returnMessage[key].push(messageContent.slice(1).join(' '));
-
-      lastScout = await message.reply(createMessage(returnMessage));
+      lastScout = await message.reply({
+        content: createMessage(returnMessage),
+        allowedMentions: { repliedUser: false },
+      });
     }
   },
 };
