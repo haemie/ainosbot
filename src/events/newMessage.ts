@@ -5,7 +5,7 @@ function createMessage(obj: scoutMessage) {
   let res = '';
   for (const [key, value] of Object.entries(obj)) {
     let valuestring = '';
-    res += `# ${key}:\n${value.join('\n')}\n`;
+    res += `# ${key}:\n${(value as string[]).join('\n')}\n`;
   }
   return res;
 }
