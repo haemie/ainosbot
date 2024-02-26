@@ -30,16 +30,15 @@ module.exports = {
 
     const messageContent = message.content.split(' ');
 
-    if (messageContent[0] === 'clearall') {
+    if (messageContent[0] === 'clearscout') {
       for (let e of Object.keys(returnMessage)) {
         const key = e as keyof scoutMessage;
         returnMessage[key].splice(0);
       }
       lastScout = null;
       await message.reply('cleared');
-    } else if (!(messageContent[0] in returnMessage)) {
-      return;
-    } else {
+    } else if (messageContent[0] in returnMessage) {
+      console.log(message.author);
       // there should be scout data in this message now
       if (lastScout) {
         // check if there's a previous message to delete first
@@ -52,12 +51,22 @@ module.exports = {
         });
       }
 
+      // save the target for command
       const key = messageContent[0] as keyof scoutMessage;
-      returnMessage[key].push(messageContent.slice(1).join(' '));
+
+      // manipulate return message string
+      messageContent[0] = message.author.toString();
+      returnMessage[key].push(messageContent.join(' '));
+
       lastScout = await message.reply({
         content: createMessage(returnMessage),
-        allowedMentions: { repliedUser: false },
+        allowedMentions: {
+          parse: [], // ping nobody
+          repliedUser: false, // don't ping the replied user
+        },
       });
+    } else {
+      // get command from the commands for this thing
     }
   },
 };
