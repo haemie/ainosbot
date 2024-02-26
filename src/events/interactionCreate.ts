@@ -1,22 +1,30 @@
-const { Events } = require('discord.js');
+import { Events, Interaction } from 'discord.js';
+import newClient from '../util/newClient';
 
 module.exports = {
   name: Events.InteractionCreate,
-  async execute(interaction) {
+  async execute(interaction: Interaction) {
     if (!interaction.isChatInputCommand()) {
       return;
     }
 
-    console.log(interaction);
-    console.log(interaction.client);
-
     // interaction.client.commands holds all commands
-    const command = interaction.client.commands.get(interaction.commandName);
+    /** retreive command function definition from the commands Collection on the Client object
+     * based on the commandname passed with the interactionCreate command
+     *
+     * i.e. user issues command /ping,
+     * creates an InteractionCreate event,
+     * gets triggered by event listener created in index.ts,
+     * callback to event is the execute() function in this file
+     * execute() function in this file grabs command name "ping" and grabs execution for ping
+     * runs ping execute() function
+     */
+    const command = (interaction.client as newClient).commands.get(
+      interaction.commandName
+    );
     // interaction.client.commands: Collection(5) [Map] {
     //   'ping' => { data: [SlashCommandBuilder], execute: [AsyncFunction: execute] },
-    //   'scout' => { data: [SlashCommandBuilder], execute: [AsyncFunction: execute] },
     //   'server' => { data: [SlashCommandBuilder], execute: [AsyncFunction: execute] },
-    //   'sticky' => { data: [SlashCommandBuilder], execute: [AsyncFunction: execute] },
     //   'user' => { data: [SlashCommandBuilder], execute: [AsyncFunction: execute] }
     // },
 
