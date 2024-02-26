@@ -8,7 +8,7 @@
     "test": "jest",
     "lint": "eslint",
     "start": "set NODE_ENV=production&& node ./dist/index.js ",
-    "dev": "nodemon index.js",
+    "dev": "set NODE_ENV=development&& ts-node-dev --respawn --transpile-only ./src/index.ts",
     "tsdev": "set NODE_ENV=development&& ts-node-dev --respawn --transpile-only ./src/index.ts"
   },
   "keywords": [],

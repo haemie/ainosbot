@@ -7,9 +7,17 @@ import { GatewayIntentBits } from 'discord.js';
 import newClient from './util/newClient';
 
 const token = process.env.TOKEN;
-const targetFileExtension = process.env.NODE_ENV === 'development' ? '.ts' : '.js';
+const targetFileExtension =
+  process.env.NODE_ENV === 'development' ? '.ts' : '.js';
 // Create a new client instance
-const client = new newClient({ intents: [GatewayIntentBits.Guilds] });
+const client = new newClient({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+  ],
+});
+
 /** creating collection to hold commands from /commands directory  */
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
