@@ -38,7 +38,7 @@ module.exports = {
       lastScout = null;
       await message.reply('cleared');
     } else if (messageContent[0] in returnMessage) {
-      console.log(message.author);
+      // console.log(message.author);
       // there should be scout data in this message now
       if (lastScout) {
         // check if there's a previous message to delete first
