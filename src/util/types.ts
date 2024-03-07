@@ -4,6 +4,7 @@ export interface newClientInterface extends Client {
 }
 
 export interface scoutMessage {
+  clearscout: string[];
   top1: string[];
   top2: string[];
   mid1: string[];
