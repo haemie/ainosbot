@@ -87,18 +87,17 @@ export async function gwHandler(message: Message, messageContent: string[]) {
     const rows = lines.map((line) => line.split('|'));
 
     // we now have an array of rows holding an array of columns each. column index width must be the same
-
     const colLengths = Array(5).fill(0);
 
     rows.forEach((ro, i) =>
       ro.forEach((co, j) => {
-        colLengths[j] = Math.max(co.length, colLengths[j]);
+        colLengths[j] = Math.max(co.trim().length, colLengths[j]);
       })
     );
 
     const paddedText = rows
       .map((ro, i) =>
-        ro.map((co, j) => co.padEnd(colLengths[j], ' ')).join(' | ')
+        ro.map((co, j) => co.trim().padEnd(colLengths[j], ' ')).join(' | ')
       )
       .join('\n');
 
