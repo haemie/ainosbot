@@ -75,8 +75,11 @@ export async function gwHandler(message: Message, messageContent: string[]) {
     // remove command name from return string
     messageContent.shift();
 
+    // remove extra spaces from return
+    const trimmedmessage = messageContent.join(' ').replace(/\s+/g, ' ').trim();
+
     // split command string into its lines
-    const lines = messageContent.join(' ').split('\n');
+    const lines = trimmedmessage.split('\n');
 
     // add a header to the table:
     lines.unshift('Hero|HP|Speed|Artifact|Other');
